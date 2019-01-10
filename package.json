@@ -1,0 +1,27 @@
+{
+  "name": "mysql-tsnode-api",
+  "version": "1.0.0",
+  "description": "api para registro de horário com envio de e-mail de confirmação",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && npm run src",
+    "connect": "ts-node ./src/models/db.ts",
+    "src": "copyfiles src/**.ts dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/rossyfranca/mysql-tsnode-api.git"
+  },
+  "author": "França",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/rossyfranca/mysql-tsnode-api/issues"
+  },
+  "homepage": "https://gitlab.com/rossyfranca/mysql-tsnode-api#readme",
+  "dependencies": {
+    "copyfiles": "^2.1.0",
+    "mysql": "^2.16.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  }
+}
