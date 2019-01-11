@@ -1,8 +1,12 @@
-import ConnectBD from '../connectdb';
+import DBService from '../connectdb';
 
 
-var connect = new ConnectBD();
+var connect = new DBService();
 
-connect.connectBD()
+
+
+
+
+
 
 
