@@ -1,15 +1,21 @@
 import { Request, Response } from "express";
-import DBService from '../connectdb';
+import DBService from '../models/connectdb';
 import { UsuarioDTO } from "../dto";
 
 var connect = new DBService();
+
 export class UsuariosController {
 
-
-
     public async listUsers(req: Request, res: Response) {
-        let usuarios = await connect.getAllUsers();
-        res.json(usuarios);
+        try {
+            let usuarios = await connect.getAllUsers();
+            res.json(usuarios);
+            res.json(204)
+        } catch (error) {
+            console.log('error no controller' + error)
+        }
+
+
 
     }
 

@@ -8,13 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const connectdb_1 = require("../connectdb");
+const connectdb_1 = require("../models/connectdb");
 var connect = new connectdb_1.default();
 class UsuariosController {
     listUsers(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let usuarios = yield connect.getAllUsers();
-            res.json(usuarios);
+            try {
+                let usuarios = yield connect.getAllUsers();
+                res.json(usuarios);
+                res.json(204);
+            }
+            catch (error) {
+                console.log('error no controller' + error);
+            }
         });
     }
     listById(req, res) {
@@ -44,6 +50,19 @@ class UsuariosController {
             let modify = req.body;
             let resposta = yield connect.updateUser(id, modify);
             res.json(resposta);
+        });
+    }
+    authenticate(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let email = req.body.email;
+            let senha = req.body.senha;
+            let login = yield connect.authenticateUser(email, senha);
+            if (login) {
+                res.status(200);
+            }
+            else {
+                res.status(500).send('Login inválido');
+            }
         });
     }
 }

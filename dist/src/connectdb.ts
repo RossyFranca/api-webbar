@@ -1,4 +1,6 @@
 import * as mysql from 'mysql';
+import { Config } from './utils/config';
+var config = new Config()
 
 export default class DBService {
 
@@ -7,10 +9,10 @@ export default class DBService {
      */
     async connectDB() {
         var conn = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "12345",
-            database: "pontodb"
+            host: config.dbConnectConfig.host,
+            user: config.dbConnectConfig.user,
+            password: config.dbConnectConfig.password,
+            database: config.dbConnectConfig.database
         });
         conn.connect((err) => {
             if (err) throw err;

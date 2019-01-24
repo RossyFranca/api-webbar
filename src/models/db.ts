@@ -1,4 +1,4 @@
-import DBService from '../connectdb';
+import DBService from './connectdb';
 
 
 var connect = new DBService();

@@ -9,6 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mysql = require("mysql");
+const config_1 = require("./utils/config");
+var config = new config_1.Config();
 class DBService {
     /**
      * Cria conexão com o banco de dados para a execuçãod e uma query
@@ -16,10 +18,10 @@ class DBService {
     connectDB() {
         return __awaiter(this, void 0, void 0, function* () {
             var conn = mysql.createConnection({
-                host: "localhost",
-                user: "root",
-                password: "12345",
-                database: "pontodb"
+                host: config.dbConnectConfig.host,
+                user: config.dbConnectConfig.user,
+                password: config.dbConnectConfig.password,
+                database: config.dbConnectConfig.database
             });
             conn.connect((err) => {
                 if (err)

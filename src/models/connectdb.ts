@@ -1,4 +1,7 @@
 import * as mysql from 'mysql';
+import { Config } from '../utils/config';
+import { promises } from 'fs';
+var config = new Config()
 
 export default class DBService {
 
@@ -7,10 +10,10 @@ export default class DBService {
      */
     async connectDB() {
         var conn = mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            password: "12345",
-            database: "pontodb"
+            host: config.dbConnectConfig.host,
+            user: config.dbConnectConfig.user,
+            password: config.dbConnectConfig.password,
+            database: config.dbConnectConfig.database
         });
         conn.connect((err) => {
             if (err) throw err;
@@ -32,7 +35,7 @@ export default class DBService {
             conn.query('SELECT * FROM usuarios', (err, result) => {
                 if (err) {
                     reject(err);
-                    conn.end(console.log(err));
+                    conn.end(console.log(err.message));
                 } else {
                     resolve(result);
                     console.log('usuários listados');
@@ -53,11 +56,11 @@ export default class DBService {
                 if (err) {
                     reject(err);
                     conn.end();
-                    console.log(err)
+                    console.log(err);
                 } else {
                     resolve(result);
                     conn.end();
-                    console.log('usuário inserido e conexão finalizada')
+                    console.log('usuário inserido e conexão finalizada');
                 }
             });
         });
@@ -70,9 +73,9 @@ export default class DBService {
                 if (err) {
                     reject(err);
                     conn.end();
-                    console.log(err)
+                    console.log(err);
                 } else {
-                    resolve(result)
+                    resolve(result);
                     conn.end();
                     console.log('usuário localizado e conexão finalizada')
                 }
@@ -80,9 +83,28 @@ export default class DBService {
         });
     }
 
+
+    async authenticateUser(email: string, senha: string) {
+        var conn = await this.connectDB();
+        return new Promise((resolve, reject) => {
+            conn.query(`SELECT * FROM usuarios WHERE senha = '${senha}' and email = '${email}';`, (err, result) => {
+                if (err) {
+                    reject(err)
+                    conn.end();
+                    console.log(err)
+                } else {
+                    resolve(result);
+                    conn.end();
+                    console.log(result);
+                }
+
+            });
+        });
+    };
+
     async deleteUser(id: number) {
 
-        var conn = await this.connectDB();
+        var conn = await this.connectDB()
         return new Promise((resolve, reject) => {
             conn.query(`DELETE FROM usuarios WHERE id = ${id}`, (err, result) => {
                 if (err) {
@@ -90,7 +112,7 @@ export default class DBService {
                     conn.end();
                     console.log(err)
                 } else {
-                    resolve(result)
+                    resolve(result);
                     conn.end();
                     console.log('usuario removido com sucesso e conesão finalizada');
                 }
@@ -105,9 +127,9 @@ export default class DBService {
                 if (err) {
                     reject(err);
                     conn.end();
-                    console.log(err)
+                    console.log(err);
                 } else {
-                    resolve(result)
+                    resolve(result);
                     conn.end();
                 }
             });
