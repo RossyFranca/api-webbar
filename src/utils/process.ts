@@ -10,8 +10,10 @@ export class Config {
 
     }
 
+    public env = {
+        PORT: 777,
+        SECRET: 'e$tud0$!'
+    }
 
-    public portServer = 777;
-    public SECRET = 'e$tud0$!'
 
 }

@@ -1,6 +1,5 @@
 import * as mysql from 'mysql';
-import { Config } from '../utils/config';
-import { promises } from 'fs';
+import { Config } from '../utils/process';
 var config = new Config()
 
 export default class DBService {

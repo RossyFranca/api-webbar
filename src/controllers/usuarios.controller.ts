@@ -14,9 +14,6 @@ export class UsuariosController {
         } catch (error) {
             console.log('error no controller' + error)
         }
-
-
-
     }
 
     public async listById(req: Request, res: Response) {

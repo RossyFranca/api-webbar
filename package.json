@@ -7,7 +7,7 @@
     "build": "tsc && npm run src",
     "connect": "ts-node ./src/models/db.ts",
     "src": "copyfiles src/**.ts dist/",
-    "start": "nodemon ./dist/server.js",
+    "start": "ts-node ./src/server.ts",
     "dev": "ts-node ./src/server.ts"
   },
   "repository": {
